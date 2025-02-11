@@ -7,6 +7,23 @@ def total_cost(n,retail_price):
         tcost = n * retail_price
     return tcost
 
+def sum_x_squared(x,y):
+    sum = 0
+    for i in range(x,y+1):
+        sum+=i**2
+    return sum
+
+def sum_x_squared_while(lim=500):
+    sum = 0
+    i = 0
+    while(sum<lim):
+        summ1=sum
+        sum += i**2
+        if sum > lim:
+            return summ1, i-1
+        i += 1
+    return sum, i
+
 if __name__ == '__main__':
     """ # %% md
     #### Exercise 1
@@ -22,3 +39,17 @@ if __name__ == '__main__':
     print( f"The cost of 3 cupcakes is €{total_cost(3,retail_price):.2f}")
     print( f'The cost of 7 cupcakes is €{total_cost(7,retail_price):.2f}')
     print( f'The cost of 12 cupcakes is €{total_cost(12,retail_price):.2f}')
+    """#%% md
+    #### Exercise 2 
+
+    Write a `for` loop to calculate the sum of $x^2$ for $x$ from 0 to 9, $\sum_{x=0}^9 x^2$.
+"""
+    print(f"The sum of x^2 between 0 and 9 is {sum_x_squared(0,9)}")
+
+    """#%% md
+     Exercise3 Alter your for loop from Exercise2 to a whileloop,which again calculates ∑
+    x=0x2,
+    but terminates  instead when    the su m    is  greater then 500."""
+    while_sum, index = sum_x_squared_while(500)
+    print(f"The sum of x^2 between 0 and {index} is {while_sum}")
+
