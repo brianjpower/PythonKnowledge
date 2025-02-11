@@ -24,6 +24,13 @@ def sum_x_squared_while(lim=500):
         i += 1
     return sum, i
 
+def factorial(x):
+    if x == 0:
+        return 1
+    else:
+        return x * factorial(x-1)
+
+
 if __name__ == '__main__':
     """ # %% md
     #### Exercise 1
@@ -53,3 +60,10 @@ if __name__ == '__main__':
     while_sum, index = sum_x_squared_while(500)
     print(f"The sum of x^2 between 0 and {index} is {while_sum}")
 
+
+    """Exercise 4 Write a function factorial to compute the factorial of x. The input argument should
+ be x and the function should return x!. For example, the factorial of 5, 5! = 5×4×3×2×1 = 120"""
+
+    x=input("Please enter the number whose factorial you require:\n")
+    res = factorial(int(x))
+    print(f"The factorial of {x} is {res}")
