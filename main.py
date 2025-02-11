@@ -1,3 +1,5 @@
+import my_math as mm
+
 def total_cost(n,retail_price):
     if n > 10:
         tcost = n * retail_price *(2.0/3.0)
@@ -67,3 +69,15 @@ if __name__ == '__main__':
     x=input("Please enter the number whose factorial you require:\n")
     res = factorial(int(x))
     print(f"The factorial of {x} is {res}")
+
+
+    """Exercise 4a - create a file called my_math.py containing function to print the odd numbers
+    between 0 and n and the even numbers between 0 and n
+    and import it such that its functions can be used in main"""
+    n = 20
+    print(f"the odd numbers between 0 and {n} are:\n")
+    mm.odd_numbers(n)
+    print("\n")
+    print(f"the even numbers between 0 and {n} are:\n")
+    print("\n")
+    mm.even_numbers(n)
