@@ -115,19 +115,4 @@ if __name__ == '__main__':
 
 
 
-    def matrix_index(X,n,m):
-        return X[n-1,m-1]
-
-
-
-
-
-
-
-    #def multiples_three(n):
-    #    return np.arange(3,n*3,3)
-    #print(f"The first 10 multiples of 3 are:\n{multiples_three(10)}")
-
-
-
 
