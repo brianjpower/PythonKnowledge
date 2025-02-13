@@ -112,7 +112,54 @@ if __name__ == '__main__':
     print(matrix_index(my_matrix, 1, 2))
 
 
+#################################  Week3 ####################################
+    #Numpy and Pandas
+    #simple matrix generation
+    A = np.array((range(5),[10]*5))
+    B = np.random.rand(5,5)
+    C = np.ones((5,2))
+    D = np.eye(5)
 
+    print(A)
+    print(B)
+    print(C)
+    print(D)
+
+    """Exercise1 Create the followin gmatrices in Python,
+ X=
+ 1 2 3 4
+ 2 4 6 8
+ 3 6 9 12
+
+Y=
+ 2 2 2
+ 2 2 2
+ 2 2 2
+ 2 2 2
+ and compute the matrix products XY andYX."""
+    X = np.array([[1,2,3,4],[2,4,6,8],[3,6,9,12]])
+    #Y = np.array([[2,2,2],[2,2,2],[2,2,2],[2,2,2]])
+    Y = np.array([[2]*3,[2]*3,[2]*3,[2]*3])
+    print(X)
+    print(Y)
+    print(f"XY = {X.dot(Y)}")
+    print(f"XY = {np.dot(X,Y)}")
+    print(f"YX = {Y.dot(X)}")
+    print(f"YX = {np.dot(Y,X)}")
+
+    #other matrix operations
+    print(D.diagonal())
+    print(D.trace())
+
+    #Need linear algebra package for other operations
+    import numpy.linalg as npl
+    print(npl.inv(B))
+    print(f"The B.invB{B.dot(npl.inv(B))}")
+    B_invB_rounded = np.round(B.dot(npl.inv(B)),2)
+    B_invB_rounded[B_invB_rounded <1e-6] = 0
+    print(f"B_invB_rounded{B_invB_rounded}")
+    print(npl.inv(D))
+    print(f"The D.invD{D.dot(npl.inv(D))}")
 
 
 
