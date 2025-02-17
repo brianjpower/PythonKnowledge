@@ -150,6 +150,8 @@ Y=
     #other matrix operations
     print(D.diagonal())
     print(D.trace())
+    print(f"A transpose {A.transpose()}")
+    print(f"A transpose alt {A.T}")
 
     #Need linear algebra package for other operations
     import numpy.linalg as npl
@@ -160,6 +162,49 @@ Y=
     print(f"B_invB_rounded{B_invB_rounded}")
     print(npl.inv(D))
     print(f"The D.invD{D.dot(npl.inv(D))}")
+    #determinant
+    #- **Determinant**: Indicates invertibility, scaling,
+    # #and orientation-changing properties of the transformation represented by the matrix.
 
+    print(f"Determinant of B is {npl.det(B)}")
+
+    # eigenvalues
+    #- **Eigenvalues**: Indicate scaling factors and stability
+    # along specific directions (eigenvectors).
+    # They have applications in understanding dynamics, transformations, and data compression.
+    #Applications also in Physics, e.g. calculating energy levels in quantum mechanics
+
+    print(f"Eigenvalues of B are:{npl.eigvals(B)}")
+
+
+    #matrix decomposition
+    M = np.array([[3, 6, 1], [2, 3, 7], [9, 2, 5]])
+    my_qr = npl.qr(M)  # Extract matrices
+    print(f"Q matrix\n{my_qr[0]}")   # Q matrix
+    print(f"R matrix\n{my_qr[1]}")   # R matrix
+    print(f"Check decomposition\n{my_qr[0].dot(my_qr[1])}")   # Check decomposition
+
+    """Exercise 2 Write the system of equations
+    2x +y−7z =10 6x−2y−z =5 x−5y+2z=8  as a matrix system and 
+    use the solve function to solve for x, y and z."""
+
+    A = np.array([[2,1,-7],[10,-2,-1],[1,-5,2]])
+    B = np.array([10,5,8])
+    print("solutions")
+    X = npl.solve(A,B)
+    print(X)
+    print(A.dot(X))
+    print(B)
+    x=X[0]
+    y=X[1]
+    z=X[2]
+    print(f"check {2*x+y-7*z}")
+
+
+    #A = np.random.rand(5,5)
+    #print(A)
+    #B = np.random.rand(5,2)
+    #print(B)
+    #print(A.dot(npl.solve(A,B)))
 
 
