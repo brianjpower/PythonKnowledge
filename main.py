@@ -551,3 +551,74 @@ plt.title('Scatter plot of price vs depth for Diamonds data',fontsize=14,fontwei
 plt.ylabel('Price')
 plt.xlabel('Depth')
 plt.show()
+
+
+
+#Exercise 3
+# Write a piece of code to create a figure of size 10x10, with 4 panels (2 rows of 2). The
+# top left panel should be price vs carat, the top right x vs carat, the bottom left y vs carat and the
+# bottom right z vs carat. Format your plot such that it matches the plot given here exactly. Pay
+# attention to axis labels, markers,etc.
+
+plt.figure(figsize=(10,10))
+plt.subplot(2,2,1)
+#plt.title('Scatter plot of price vs carat for Diamonds data',fontsize=14,fontweight='bold')
+plt.plot(diamonds.carat,diamonds.price,'ro')
+plt.ylabel('Price')
+plt.xlabel('Carat')
+plt.subplot(2,2,2)
+plt.plot(diamonds.carat,diamonds.x,color='c', marker='d',linestyle='none')
+#plt.title('Scatter plot of price vs depth for Diamonds data',fontsize=14,fontweight='bold')
+plt.xlabel('Carat')
+plt.ylabel('X dimension')
+plt.subplot(2,2,3)
+plt.plot(diamonds.carat,diamonds.y,'mo')
+plt.xlabel('Carat')
+plt.ylabel('Y dimension')
+plt.subplot(2,2,4)
+plt.plot(diamonds.carat,diamonds.z,color='g', marker='s',linestyle='none')
+plt.xlabel('Carat')
+plt.ylabel('Z dimension')
+plt.show()
+
+#Plotting directly with pandas
+
+diamonds.plot('carat','price',color='r',linestyle='None',marker='*')
+plt.ylabel('Price',fontsize=12)
+plt.xlabel('Carat',fontsize=12)
+plt.title('Scatter plot of price vs carat for Diamonds data',fontsize=12)
+plt.axis([0,5,0,20000])
+plt.grid(b=True, which='major',color='0.6', linestyle=':')
+plt.show()
+
+#Bar charts and histgrams
+
+
+print(diamonds.color.value_counts())
+diamonds.color.value_counts().plot(kind='bar',color='b',alpha=0.4)
+plt.ylabel('Count')
+plt.xlabel('Color')
+#plt.figure()
+#plt.bar(diamonds.color.value_counts(),color='g',alpha=0.5)
+#plt.title('Bar chart of diamond colour',fontsize=14)
+#plt.xticks(np.linespace(0,5,5))
+plt.show()
+diamonds.price.hist(bins=[0,2000,5000,8000,13000,15000,20000],color='r',alpha=0.5,label='Unequal bins')
+diamonds.price.plot(kind='hist',color='b',alpha=0.5,bins=20,label='20 evenly spaced bins')
+plt.legend()
+plt.show()
+
+
+diamonds.price.hist(bins=20,density=True,color='b',alpha=0.2)
+diamonds.price.plot(kind='kde',style='--',linewidth=2.0)
+plt.axis([0,25000,0,0.0004])
+plt.show()
+
+
+#Other types of plots, boxplots etc
+
+diamonds.boxplot('price',by='color')
+plt.show()
+
+pd.plotting.scatter_matrix(diamonds, diagonal='kde',color='g',alpha=0.4)
+plt.show()
