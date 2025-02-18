@@ -1,8 +1,10 @@
+from sqlalchemy.dialects.mssql.information_schema import columns
+
 import my_math as mm
 import numpy as np
 
 
-#################################  Week2 ####################################
+#################################  Section2 ####################################
 def total_cost(n,retail_price):
     if n > 10:
         tcost = n * retail_price *(2.0/3.0)
@@ -112,7 +114,7 @@ if __name__ == '__main__':
     print(matrix_index(my_matrix, 1, 2))
 
 
-#################################  Week3 ####################################
+#################################  Section3 ####################################
     #Numpy and Pandas
     #simple matrix generation
     A = np.array((range(5),[10]*5))
@@ -207,4 +209,345 @@ Y=
     #print(B)
     #print(A.dot(npl.solve(A,B)))
 
+    #random sampling
+    import numpy.random as npr
+    #random matrix of dim 4,5 from standard Normal dist N(0,1)
+    print(npr.randn(4,5))
+    print(np.mean(npr.randn(4,5)))
+    # random matrix of dim 2,2 from uniform dist U(0,1)
+    print(npr.rand(2,2))
 
+    print(npr.normal(10, 2, size=(3, 2)))
+    print(npr.randint(0, 100, size=(2, 6)))
+
+    #random samples
+    x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    print(npr.permutation(x))
+    print(x)
+    npr.shuffle(x)
+    print(x)
+    print(npr.choice(x, 2))
+
+    #random seed
+    npr.seed(1234)
+    print(npr.rand())
+
+
+    #Pandas - series and dataframes, data analysis
+
+    import pandas as pd
+    from pandas import Series, DataFrame
+
+    #series is a 1d version  of a dataframe
+
+    my_series = Series([1, 2, 3, 4, 5])
+    print(my_series)
+    print(my_series[0])
+    print(my_series[1:3])
+    print(my_series[[1, 3]])
+    print(my_series[my_series > 3])
+    print(my_series.index)
+    print(my_series.values)
+    print(my_series.describe())
+
+    my_series_2 = Series([6, 9, 2, 5], index=['a', 'd', 'b', 'c'])
+    print(my_series_2)
+
+    print(my_series_2['c'])
+
+    #dataframe is a 2d series, to create simply pass a nested list or a dict to
+    #the DataFrame function
+
+    dict1 = {'PhoneType':['iPhone','iPhone 3G', 'iPhone 3GS', 'iPhone 4','iPhone 4S','iPhone X'],'memory_MB':[128,128, 256, 512,512,1024], 'weight_g':[135, 133,135, 137,140,112],'camera_MP':[2, 2, 3,5,8, 8],'year':[2007,2008, 2009,2010,2011, 2012]}
+
+    iphone_df = DataFrame(dict1)
+    print(iphone_df)
+
+    #print(iphone_df['memory_MB'].values)
+    #print(iphone_df['memory_MB'])
+    #print(iphone_df.memory_MB)
+    #print(iphone_df.PhoneType)
+
+    print(iphone_df.iloc[2:6,:3])
+    print(iphone_df.iloc[0:,2])
+
+    #Passing by reference
+    #If part of a dataframe is extracted to another and that extracted dataframe
+    #is changed, the original dataframe is changed also, unless the copy method is used
+
+    df_2 = DataFrame({'x': [0, 1, 2, 3], 'y': [4, 5, 6, 7], 'z':[8, 9, 10, 11]}, index = ('a', 'b', 'c', 'd'))
+    print(df_2)
+    sample = df_2.x
+    sample[0:2] = 10
+    print(df_2)
+
+    df_3 = DataFrame({'x': [0, 1, 2, 3], 'y': [4, 5, 6, 7], 'z':[8, 9, 10, 11]}, index = ('a', 'b', 'c', 'd'))
+    sample2 = df_3.x.copy()
+    sample2[0:2] = 10
+    print(df_3)
+
+
+ #Exercise 5 Take the data from the table below and store it as a pandas DataFrame. Use the
+ #Name column as the row index, and the remaining column headings as the column indices. After
+ #creating the DataFrame, print out Darren’s height.
+
+ #name,age,height,weight
+ #Aaron,23,1.7,64
+ #Barry,36,2.1,99
+ #Catherine,27,1.8,68
+ #Darren,19,1.9,85
+ #Edel,41,1.7,102
+ #Francis,38,2.0,84
+ #George,57,1.8,87
+ #Helen,17,1.6,90
+ #Ian,28,1.7,78
+
+
+df_4 = DataFrame({'age':[23,36,27,19,41,38,57,17,28],'height':[1.7,2.1,1.8,1.9,1.7,2.0,1.8,1.6,1.7],'weight':[64,99,68,85,102,84,87,90,78]},index=('Aaron','Barry','Catherine','Darren','Edel','Francis','George','Helen','Ian'))
+
+print(df_4)
+
+print(df_4['height'].loc['Darren'])
+
+print(df_4.iloc[3,1])
+
+print(df_4.loc['Darren','height'])
+
+
+#################################  Section4 ####################################
+###############################Loading and saving data#######################
+print("######  Section4 ########")
+path = 'C:\\Users\\brian\\OneDrive\\Documents\\MSC Data Analytics\\Data Prog with Python\\Full course\\'
+
+f = open(path + 'sample1.txt')
+print(f.read())
+f.close()
+
+f= open(path + 'sample1.txt','r')
+lines = [i for i in f]
+print(lines)
+f.close()
+
+
+f= open(path + 'sample1.txt','r')
+lines = [int(i) for i in f]
+print(lines)
+f.close()
+
+
+# The file sample2.txt contains a slightly more complicated data set where one of the lines contains
+# two elements and we want to read it in as [[abc],[de,f],[g]]. We could use a comprehension, but it
+# would be a little harder to follow, so we will use a for loop instead
+
+
+f = open(path + 'sample2.txt')
+data = []
+for line in f:
+    lines = line.strip('\n').split(" ")
+    data.append(lines)
+
+print(data)
+
+f.close()
+
+###Exercise 1 Adapt the above code above to import integers instead of characters and use it to
+# import the sample3.txt data set.
+
+data2 = []
+f= open(path+'sample3.txt')
+
+for i in f:
+    lines = i.strip('\n').split(" ")
+    data2.append([int(j) for j in lines])
+
+print(data2)
+f.close()
+
+#file sample 5 contains a mixture of characters and numbers which need to be
+#assessed when reading
+data = []
+for line in open(path+'sample4.txt'):
+    items = line.rstrip('\n').split(' ')
+    curr_items = []
+    print(items)
+    for j in items:
+        if j.isalpha():
+            curr_items.append(j)
+        else:
+            curr_items.append(int(j))
+    data.append(curr_items)
+print(data)
+
+#Create a dict from sample5.txt which has the following format
+#John 25
+#Mary 28
+#Jim 19
+
+data = {}
+
+for line in open(path+'sample5.txt'):
+    data[line.split(' ')[0]] = int(line.split(' ')[1])
+print(data)
+## Exercise 2 Adapt the above code above to allow for more than 2 entries per line. The first entry
+# should be used as the key and the remaining entries used as the values. Now use your code to
+# import the file sample6.txt
+
+data2 = {}
+for line in open(path+'sample6.txt'):
+    items = line.rstrip('\n').split(' ')
+    print(items)
+    data2[items[0]] = items[1:]
+print(data2)
+
+#load data as an array
+import numpy as np
+data = np.loadtxt(path+'array.txt',delimiter=',')
+print(data)
+
+#import numpy as np
+#data = np.loadtxt(path+'array_test.txt',delimiter=',')
+#print(data)
+
+#data3 = []
+#f = open(path+'array_test.txt')
+#for i in f:
+#    lines = i.strip('\n').split(',')
+#    data3.append([int(j.split("'")) for j in lines])
+
+#print(data3)
+#f.close()
+
+an_array = np.arange(20)
+np.save(path+'my_array',an_array)
+
+an_array_2 = np.load(path+'my_array.npy')
+print(an_array_2)
+print(type(an_array_2))
+
+
+#import data as dataframe
+
+df_1 = pd.read_csv(path+'sample_csv.csv')
+print(df_1)
+
+#for tab separated
+df_2 = pd.read_csv(path+'sample_dat.dat',sep='\t')
+print(df_2)
+
+df_3 = pd.read_csv(path+'array.txt',sep=',')
+print(df_3)
+
+#print(df_3[1][1])
+
+df_3= pd.read_csv(path+'array.txt',sep=',',names=['a','b','c','d','e'])
+print(df_3)
+print(df_3['a'][1])
+
+#other variations and options
+df_2= pd.read_csv(path+'sample_dat.dat',sep='\t',skiprows=[0],names=['x','y'],nrows=4)
+print(df_2)
+
+df_1= pd.read_csv(path+'sample_csv.csv',index_col='Name')
+print(df_1)
+
+print(df_1.loc['Brian']['Height'])
+print(df_1.loc['Brian','Height'])
+
+my_missing = ['NA','NULL','-999','-1']
+diamonds = pd.read_csv(path+'diamonds.csv',na_values=my_missing)
+print(diamonds.head())
+
+#Exercise 4 Download the diamonds.csv data set and write a piece of code that imports the first
+# 8 rows and the columns ‘carat’, ‘cut’, ‘depth’ and ‘table’ as a DataFrame. You should use the depth
+# column as the row index
+df_diamonds = pd.read_csv(path+'diamonds.csv',na_values=my_missing,nrows=8,index_col='depth',usecols=['carat','cut','depth','table'])
+print(df_diamonds)
+
+
+#Write dataframes to other formats
+
+my_series = Series(np.arange(10),name='x')
+my_series.to_csv(path+'my_series.csv',header=True)
+my_df = DataFrame({'a':np.arange(5),'b':np.arange(5,10)})
+my_df.to_csv(path+'my_df.csv')
+
+df_covid = pd.read_excel(path+'covid-cases.xlsx',skiprows=3,index_col=0,parse_dates=True)
+print(df_covid.tail(10))
+
+
+#Loading data from APIs
+
+import sys
+import wbdata as wbd
+
+country1 = ['IE']
+indicator1 = {'SP.POP.TOTL': 'TotalPopulation'}
+data1 = wbd.get_dataframe(indicator1, country1)
+#print(data1)
+
+country2 = ['US', 'CN']
+indicator2 = {'SP.POP.TOTL': 'TotalPopulation', 'SP.POP.GROW': 'Populationgrowth (annual %)'}
+data2 = wbd.get_dataframe(indicator2, country2).unstack(level=0)
+#print(data2)
+
+#print(wbd.get_countries())
+
+#print(wbd.get_indicators()[1:2])
+
+#################################  Section 5 ####################################
+###################################Plotting######################################
+
+print("######  Section5 ########")
+
+import matplotlib.pyplot as plt
+
+plt.figure()
+#plt.plot(diamonds.carat,diamonds.price,'r.')
+#plt.plot(diamonds.carat,diamonds.price,color='g',marker='*',linestyle='none')
+#plt.plot(diamonds.carat,diamonds.price,color='r',marker='.',linestyle='none')
+plt.scatter(diamonds.carat,diamonds.price,color='g',marker='*',label='Price')
+plt.plot(diamonds.carat,2*diamonds.price,color='r',marker='.',linestyle='none',label='Double Price' )
+plt.xlabel('Carat')
+plt.ylabel('Price')
+plt.title('Scatter plot of price vs carat for Diamonds data',fontsize=14)
+plt.xticks(np.linspace(0,5,5))
+#plt.yticks([0,10000,20000,30000],['Free!','Cheap','Pricey','Expensive'])
+plt.text(3.5, 12000, 'Very big diamond!')
+plt.grid(b=True, which='major',color='0.6', linestyle=':')
+plt.legend()
+
+plt.show()
+##Exercise 2 Write a piece of code to produce a plot of the diamond dimensions x, y and z versus
+# the carat. Format your plot such that it matches the plot given here exactly. Pay attention to axis
+# labels, markers, legend, etc.
+
+
+plt.figure()
+plt.scatter(diamonds.carat,diamonds.x,color='c',marker='d',label='x')
+plt.scatter(diamonds.carat,diamonds.y,color='m',marker='o',label='y')
+plt.scatter(diamonds.carat,diamonds.z,color='g',marker='s',label='z')
+plt.xlim(0,3)
+plt.ylim(0,10)
+plt.legend(loc='lower right')
+plt.xlabel('Carat')
+plt.ylabel('Length')
+plt.grid(b=True, which='major',color='0.6', linestyle=':')
+plt.yticks(np.linspace(0,10,5))
+plt.title('Scatter plot of diamond dimension versus carat',fontsize=14,  fontweight='bold')
+plt.savefig(path+'diamond_dimensions.png')
+plt.show()
+
+
+plt.figure(figsize=(8,10))
+
+plt.subplot(2,1,1)
+plt.title('Scatter plot of price vs carat for Diamonds data',fontsize=14,fontweight='bold')
+plt.plot(diamonds.carat,diamonds.price,'go')
+plt.ylabel('Price')
+plt.xlabel('Carat')
+plt.subplot(2,1,2)
+plt.plot(diamonds.depth,diamonds.price,'r+')
+plt.title('Scatter plot of price vs depth for Diamonds data',fontsize=14,fontweight='bold')
+plt.ylabel('Price')
+plt.xlabel('Depth')
+plt.show()
