@@ -500,7 +500,7 @@ data2 = wbd.get_dataframe(indicator2, country2).unstack(level=0)
 print("######  Section5 ########")
 
 import matplotlib.pyplot as plt
-
+"""
 plt.figure()
 #plt.plot(diamonds.carat,diamonds.price,'r.')
 #plt.plot(diamonds.carat,diamonds.price,color='g',marker='*',linestyle='none')
@@ -593,7 +593,7 @@ plt.show()
 
 #Bar charts and histgrams
 
-
+"""
 print(diamonds.color.value_counts())
 diamonds.color.value_counts().plot(kind='bar',color='b',alpha=0.4)
 plt.ylabel('Count')
@@ -608,7 +608,22 @@ diamonds.price.plot(kind='hist',color='b',alpha=0.5,bins=20,label='20 evenly spa
 plt.legend()
 plt.show()
 
+#Exercise 4
+#Create a histogram for each of the variables x, y and z, and plot them on the same
+# graph. Use bins of width 0.5, starting at 2 and ending at 9.
+diamonds.x.hist(bins=[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9],color='b',alpha=0.5,density=True)
+diamonds.y.hist(bins=[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9],color='r',alpha=0.5,density=True)
+diamonds.z.hist(bins=[2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9],color='g',alpha=0.5,density=True)
+plt.legend(['x','y','z'])
+plt.xlabel('Dimension')
+plt.ylabel('Density')
+plt.title('Histogram of diamond dimensions',fontsize=14)
 
+plt.grid(b=True, which='major',color='0.6', linestyle=':')
+plt.show()
+
+
+"""
 diamonds.price.hist(bins=20,density=True,color='b',alpha=0.2)
 diamonds.price.plot(kind='kde',style='--',linewidth=2.0)
 plt.axis([0,25000,0,0.0004])
@@ -620,5 +635,60 @@ plt.show()
 diamonds.boxplot('price',by='color')
 plt.show()
 
-pd.plotting.scatter_matrix(diamonds, diagonal='kde',color='g',alpha=0.4)
+pd.plotting.scatter_matrix(diamonds, diagonal='kde',color='g',alpha=0.4,figsize=(14,14))
+plt.show()
+"""
+
+
+####Seaborn
+
+import seaborn as sns
+"""
+#sns.set_style('whitegrid')
+sns.set_style('darkgrid')
+sns.boxplot(x='color',y='price',data=diamonds)
+plt.show()
+
+sns.relplot(x='carat',y='price',data=diamonds,kind='scatter',hue='color',style='cut')
+plt.xlabel('Carat')
+plt.ylabel('Price')
+plt.axis([0,3,0,20000])
+
+plt.show()
+
+sns.jointplot(x='carat', y='price', data=diamonds)
+plt.show()
+
+#distplot with kde (kernel density estimation) overlaid
+sns.distplot(diamonds["price"],hist=True,kde=True,bins=10,norm_hist=True)
+plt.show()
+
+sns.relplot(x="carat", y="price", data=diamonds, kind="line", ci='sd')
+plt.axis([0,2.5,0,20000])
+plt.show()
+
+
+# Exercise 5.  Read the help file for the seaborn function countplot (sns.countplot?), and use
+# it to reproduce the figure given here. Pay particular attention to the palette and saturation
+# arguments. You will also need to change the seaborn plotting style.
+"""
+""" 
+sns.set_style('whitegrid')
+sns.countplot(x='cut',data=diamonds,palette=['b','c','lightgreen','y','orange'],saturation=0.9)
+plt.xlabel('Cut')
+plt.ylabel('Number of diamonds')
+plt.show()
+"""
+penguins = sns.load_dataset("penguins")
+print(penguins.head())
+print(penguins.info())
+print(penguins.species.value_counts())
+print(penguins.island.value_counts())
+print(penguins.sex.value_counts())
+
+sns.scatterplot(data=penguins,x='bill_length_mm',y='flipper_length_mm',hue='species',style='species')
+plt.show()
+
+sns.distplot(penguins["body_mass_g"],bins=[2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000],kde=False)
+plt.grid(b=True, which='major',color='0.6', linestyle=':')
 plt.show()
